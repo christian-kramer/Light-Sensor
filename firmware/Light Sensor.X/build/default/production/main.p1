@@ -1,0 +1,180 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"313 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 313:     struct {
+[s S23 :1 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 :2 `uc 1 ]
+[n S23 . ADON GO_nDONE CHS . ANS ]
+"320
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 320:     struct {
+[s S24 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S24 . . GO CHS0 CHS1 . ANS0 ANS1 ]
+"329
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 329:     struct {
+[s S25 :1 `uc 1 :1 `uc 1 ]
+[n S25 . . nDONE ]
+"312
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 312: typedef union {
+[u S22 `S23 1 `S24 1 `S25 1 ]
+[n S22 . . . . ]
+"334
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 334: extern volatile ADCON0bits_t ADCON0bits __attribute__((address(0x007)));
+[v _ADCON0bits `VS22 ~T0 @X0 0 e@7 ]
+"389
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 389: extern volatile unsigned char ADRES __attribute__((address(0x008)));
+[v _ADRES `Vuc ~T0 @X0 0 e@8 ]
+[p mainexit ]
+"467
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 467: extern volatile __control unsigned char TRISGPIO __attribute__((address(0x006)));
+[v _TRISGPIO `VWuc ~T0 @X0 0 e@6 ]
+"307
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 307: extern volatile unsigned char ADCON0 __attribute__((address(0x007)));
+[v _ADCON0 `Vuc ~T0 @X0 0 e@7 ]
+"269
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 269: extern volatile unsigned char GPIO __attribute__((address(0x006)));
+[v _GPIO `Vuc ~T0 @X0 0 e@6 ]
+"9 main.c
+[p x IOSCFS = 8MHZ ]
+"10
+[p x MCPU = ON ]
+"11
+[p x WDTE = OFF ]
+"12
+[p x CP = OFF ]
+"13
+[p x MCLRE = ON ]
+"54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 54: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"74
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 74: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"94
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 94: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"114
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 114: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"180
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 180: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"200
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 200: __asm("OSCCAL equ 05h");
+[; <" OSCCAL equ 05h ;# ">
+"271
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 271: __asm("GPIO equ 06h");
+[; <" GPIO equ 06h ;# ">
+"309
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 309: __asm("ADCON0 equ 07h");
+[; <" ADCON0 equ 07h ;# ">
+"391
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h: 391: __asm("ADRES equ 08h");
+[; <" ADRES equ 08h ;# ">
+"23 main.c
+[; ;main.c: 23: char getLightValue()
+[v _getLightValue `(uc ~T0 @X0 1 ef ]
+"24
+[; ;main.c: 24: {
+{
+[e :U _getLightValue ]
+[f ]
+"25
+[; ;main.c: 25:     ADCON0bits.GO = 1;
+[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
+"26
+[; ;main.c: 26:     return ~ADRES;
+[e ) -> ~ -> _ADRES `i `uc ]
+[e $UE 29  ]
+"27
+[; ;main.c: 27: }
+[e :UE 29 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"29
+[; ;main.c: 29: void main() {
+[v _main `(v ~T0 @X0 1 ef ]
+{
+[e :U _main ]
+[f ]
+"31
+[; ;main.c: 31:     TRISGPIO = 0x01;
+[e = _TRISGPIO -> -> 1 `i `uc ]
+"32
+[; ;main.c: 32:     ADCON0 = 0x41;
+[e = _ADCON0 -> -> 65 `i `uc ]
+"34
+[; ;main.c: 34:     char startValue = getLightValue();
+[v _startValue `uc ~T0 @X0 1 a ]
+[e = _startValue ( _getLightValue ..  ]
+"35
+[; ;main.c: 35:     char count = 0;
+[v _count `uc ~T0 @X0 1 a ]
+[e = _count -> -> 0 `i `uc ]
+"37
+[; ;main.c: 37:     while (1) {
+[e :U 32 ]
+{
+"38
+[; ;main.c: 38:         char currentValue = getLightValue();
+[v _currentValue `uc ~T0 @X0 1 a ]
+[e = _currentValue ( _getLightValue ..  ]
+"39
+[; ;main.c: 39:         if (currentValue > startValue + 5 && count < 100)
+[e $ ! && > -> _currentValue `i + -> _startValue `i -> 5 `i < -> _count `i -> 100 `i 34  ]
+"40
+[; ;main.c: 40:         {
+{
+"41
+[; ;main.c: 41:             count++;
+[e ++ _count -> -> 1 `i `uc ]
+"42
+[; ;main.c: 42:         }
+}
+[e :U 34 ]
+"43
+[; ;main.c: 43:         if (currentValue < startValue - 5 && count > 0)
+[e $ ! && < -> _currentValue `i - -> _startValue `i -> 5 `i > -> _count `i -> 0 `i 35  ]
+"44
+[; ;main.c: 44:         {
+{
+"45
+[; ;main.c: 45:             count--;
+[e -- _count -> -> 1 `i `uc ]
+"46
+[; ;main.c: 46:         }
+}
+[e :U 35 ]
+"47
+[; ;main.c: 47:         if (count == 100)
+[e $ ! == -> _count `i -> 100 `i 36  ]
+"48
+[; ;main.c: 48:         {
+{
+"49
+[; ;main.c: 49:             GPIO = 0x04;
+[e = _GPIO -> -> 4 `i `uc ]
+"50
+[; ;main.c: 50:         }
+}
+[e :U 36 ]
+"51
+[; ;main.c: 51:         if (count == 0)
+[e $ ! == -> _count `i -> 0 `i 37  ]
+"52
+[; ;main.c: 52:         {
+{
+"53
+[; ;main.c: 53:             GPIO = 0x00;
+[e = _GPIO -> -> 0 `i `uc ]
+"54
+[; ;main.c: 54:         }
+}
+[e :U 37 ]
+"55
+[; ;main.c: 55:     }
+}
+[e :U 31 ]
+[e $U 32  ]
+[e :U 33 ]
+"56
+[; ;main.c: 56: }
+[e :UE 30 ]
+}
