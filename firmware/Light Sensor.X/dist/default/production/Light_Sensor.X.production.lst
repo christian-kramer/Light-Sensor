@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V2.00 build -1524193055 
-                                                                                               Thu Sep 20 21:57:18 2018
+                                                                                               Mon Sep 24 01:30:43 2018
 
 Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 20180527130849
      1  0000                     
@@ -163,479 +163,795 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    102                           ADCON0 equ 07h ;# 
    103  0007                     # 391 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic10f220.h"
    104                           ADRES equ 08h ;# 
-   105  0008                     	FNCALL	_main,_getLightValue
-   106                           	FNROOT	_main
-   107                           	global	_GPIO
-   108                           _GPIO	set	0x6
-   109  0006                     	global	_ADCON0
-   110                           _ADCON0	set	0x7
-   111  0007                     	global	_TRISGPIO
-   112                           _TRISGPIO	set	0x6
-   113  0006                     	global	_ADRES
-   114                           _ADRES	set	0x8
-   115  0008                     	global	_ADCON0bits
-   116                           _ADCON0bits	set	0x7
-   117  0007                     ; #config settings
-   118                           global __CFG_IOSCFS$8MHZ
-   119                           __CFG_IOSCFS$8MHZ equ 0x0
-   120  0000                     global __CFG_MCPU$ON
-   121                           __CFG_MCPU$ON equ 0x0
-   122  0000                     global __CFG_WDTE$OFF
-   123                           __CFG_WDTE$OFF equ 0x0
-   124  0000                     global __CFG_CP$OFF
-   125                           __CFG_CP$OFF equ 0x0
-   126  0000                     global __CFG_MCLRE$ON
-   127                           __CFG_MCLRE$ON equ 0x0
-   128  0000                     	file	"C:\Users\flyhi\AppData\Local\Temp\snco."
-   129                           	line	#
-   130                           psect cinit,class=ENTRY,delta=2
-   131                           global start_initialization
-   132                           start_initialization:
-   133  001                     
-   134                           global __initialization
-   135                           __initialization:
-   136  001                     psect cinit,class=ENTRY,delta=2,merge=1
-   137                           global end_of_initialization,__end_of__initialization
-   138                           
-   139                           ;End of C runtime variable initialization code
-   140                           
-   141                           end_of_initialization:
-   142  001                     __end_of__initialization:
-   143  001                     clrf fsr
-   144  001  064                ljmp _main	;jump to C main() function
-   145  002  A03                psect	cstackCOMMON,class=COMMON,space=1,noexec
-   146                           global __pcstackCOMMON
-   147                           __pcstackCOMMON:
-   148  000                     ??_getLightValue:	; 1 bytes @ 0x0
-   149  000                     psect	cstackBANK0,class=BANK0,space=1,noexec
-   150                           global __pcstackBANK0
-   151                           __pcstackBANK0:
-   152  010                     	global	?_getLightValue
-   153                           ?_getLightValue:	; 1 bytes @ 0x0
-   154  010                     ?_main:	; 1 bytes @ 0x0
-   155  010                     	ds	1
-   156  010                     ??_main:	; 1 bytes @ 0x1
-   157  011                     	ds	1
-   158  011                     	global	main@startValue
-   159                           main@startValue:	; 1 bytes @ 0x2
-   160  012                     	ds	1
-   161  012                     	global	main@currentValue
-   162                           main@currentValue:	; 1 bytes @ 0x3
-   163  013                     	ds	1
-   164  013                     	global	main@count
-   165                           main@count:	; 1 bytes @ 0x4
-   166  014                     	ds	1
-   167  014                     ;!
-   168                           ;!Data Sizes:
-   169                           ;!    Strings     0
-   170                           ;!    Constant    0
-   171                           ;!    Data        0
-   172                           ;!    BSS         0
-   173                           ;!    Persistent  0
-   174                           ;!    Stack       0
-   175                           ;!
-   176                           ;!Auto Spaces:
-   177                           ;!    Space          Size  Autos    Used
-   178                           ;!    COMMON            0      0       0
-   179                           ;!    BANK0            14      5       5
-   180                           
-   181                           ;!
-   182                           ;!Pointer List with Targets:
-   183                           ;!
-   184                           ;!    None.
-   185                           
-   186                           
-   187                           ;!
-   188                           ;!Critical Paths under _main in COMMON
-   189                           ;!
-   190                           ;!    None.
-   191                           ;!
-   192                           ;!Critical Paths under _main in BANK0
-   193                           ;!
-   194                           ;!    _main->_getLightValue
-   195                           
-   196 ;;
-   197 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
-   198 ;;
-   199                           
-   200                           ;!
-   201                           ;!Call Graph Tables:
-   202                           ;!
-   203                           ;! ---------------------------------------------------------------------------------
-   204                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
-   205                           ;! ---------------------------------------------------------------------------------
-   206                           ;! (0) _main                                                 4     4      0     181
-   207                           ;!                                              1 BANK0      4     4      0
-   208                           ;!                      _getLightValue
-   209                           ;! ---------------------------------------------------------------------------------
-   210                           ;! (1) _getLightValue                                        1     0      1       0
-   211                           ;!                                              0 BANK0      1     0      1
-   212                           ;! ---------------------------------------------------------------------------------
-   213                           ;! Estimated maximum stack depth 1
-   214                           ;! ---------------------------------------------------------------------------------
-   215                           ;!
-   216                           ;! Call Graph Graphs:
-   217                           ;!
-   218                           ;! _main (ROOT)
-   219                           ;!   _getLightValue
-   220                           ;!
-   221                           
-   222                           ;! Address spaces:
+   105  0008                     	FNCALL	_main,_calibrate
+   106                           	FNCALL	_main,_flash
+   107                           	FNCALL	_main,_getLightValue
+   108                           	FNCALL	_calibrate,_getLightValue
+   109                           	FNROOT	_main
+   110                           	global	_ADCON0
+   111                           _ADCON0	set	0x7
+   112  0007                     	global	_TRISGPIO
+   113                           _TRISGPIO	set	0x6
+   114  0006                     	global	_OPTION
+   115                           _OPTION	set	0x0
+   116  0000                     	global	_OSCCALbits
+   117                           _OSCCALbits	set	0x5
+   118  0005                     	global	_GPIO
+   119                           _GPIO	set	0x6
+   120  0006                     	global	_ADRES
+   121                           _ADRES	set	0x8
+   122  0008                     	global	_ADCON0bits
+   123                           _ADCON0bits	set	0x7
+   124  0007                     ; #config settings
+   125                           global __CFG_IOSCFS$8MHZ
+   126                           __CFG_IOSCFS$8MHZ equ 0x0
+   127  0000                     global __CFG_MCPU$ON
+   128                           __CFG_MCPU$ON equ 0x0
+   129  0000                     global __CFG_WDTE$OFF
+   130                           __CFG_WDTE$OFF equ 0x0
+   131  0000                     global __CFG_CP$OFF
+   132                           __CFG_CP$OFF equ 0x0
+   133  0000                     global __CFG_MCLRE$ON
+   134                           __CFG_MCLRE$ON equ 0x0
+   135  0000                     	file	"C:\Users\flyhi\AppData\Local\Temp\sq8k."
+   136                           	line	#
+   137                           psect cinit,class=ENTRY,delta=2
+   138                           global start_initialization
+   139                           start_initialization:
+   140  001                     
+   141                           global __initialization
+   142                           __initialization:
+   143  001                     psect cinit,class=ENTRY,delta=2,merge=1
+   144                           global end_of_initialization,__end_of__initialization
+   145                           
+   146                           ;End of C runtime variable initialization code
+   147                           
+   148                           end_of_initialization:
+   149  001                     __end_of__initialization:
+   150  001                     clrf fsr
+   151  001  064                ljmp _main	;jump to C main() function
+   152  002  A03                psect	cstackCOMMON,class=COMMON,space=1,noexec
+   153                           global __pcstackCOMMON
+   154                           __pcstackCOMMON:
+   155  000                     ??_getLightValue:	; 1 bytes @ 0x0
+   156  000                     psect	cstackBANK0,class=BANK0,space=1,noexec
+   157                           global __pcstackBANK0
+   158                           __pcstackBANK0:
+   159  010                     	global	?_getLightValue
+   160                           ?_getLightValue:	; 1 bytes @ 0x0
+   161  010                     ?_flash:	; 1 bytes @ 0x0
+   162  010                     ??_flash:	; 1 bytes @ 0x0
+   163  010                     ?_main:	; 1 bytes @ 0x0
+   164  010                     	ds	1
+   165  010                     	global	?_calibrate
+   166                           ?_calibrate:	; 1 bytes @ 0x1
+   167  011                     	ds	1
+   168  011                     ??_calibrate:	; 1 bytes @ 0x2
+   169  012                     	ds	2
+   170  012                     	global	calibrate@count
+   171                           calibrate@count:	; 1 bytes @ 0x4
+   172  014                     	ds	1
+   173  014                     	global	calibrate@baseline
+   174                           calibrate@baseline:	; 1 bytes @ 0x5
+   175  015                     	ds	1
+   176  015                     	global	calibrate@newValue
+   177                           calibrate@newValue:	; 1 bytes @ 0x6
+   178  016                     	ds	1
+   179  016                     ??_main:	; 1 bytes @ 0x7
+   180  017                     	ds	1
+   181  017                     	global	main@startValue
+   182                           main@startValue:	; 1 bytes @ 0x8
+   183  018                     	ds	1
+   184  018                     	global	main@currentValue
+   185                           main@currentValue:	; 1 bytes @ 0x9
+   186  019                     	ds	1
+   187  019                     	global	main@score
+   188                           main@score:	; 1 bytes @ 0xA
+   189  01A                     	ds	1
+   190  01A                     ;!
+   191                           ;!Data Sizes:
+   192                           ;!    Strings     0
+   193                           ;!    Constant    0
+   194                           ;!    Data        0
+   195                           ;!    BSS         0
+   196                           ;!    Persistent  0
+   197                           ;!    Stack       0
+   198                           ;!
+   199                           ;!Auto Spaces:
+   200                           ;!    Space          Size  Autos    Used
+   201                           ;!    COMMON            0      0       0
+   202                           ;!    BANK0            14     11      11
+   203                           
+   204                           ;!
+   205                           ;!Pointer List with Targets:
+   206                           ;!
+   207                           ;!    None.
+   208                           
+   209                           
+   210                           ;!
+   211                           ;!Critical Paths under _main in COMMON
+   212                           ;!
+   213                           ;!    None.
+   214                           ;!
+   215                           ;!Critical Paths under _main in BANK0
+   216                           ;!
+   217                           ;!    _main->_calibrate
+   218                           ;!    _calibrate->_getLightValue
+   219                           
+   220 ;;
+   221 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   222 ;;
    223                           
-   224                           ;!Name               Size   Autos  Total    Cost      Usage
-   225                           ;!BITCOMMON            0      0       0       0        0.0%
-   226                           ;!NULL                 0      0       0       0        0.0%
-   227                           ;!CODE                 0      0       0       0        0.0%
-   228                           ;!BITSFR0              0      0       0       1        0.0%
-   229                           ;!SFR0                 0      0       0       1        0.0%
-   230                           ;!COMMON               0      0       0       1        0.0%
-   231                           ;!STACK                0      0       0       2        0.0%
-   232                           ;!BANK0                E      5       5       3       35.7%
-   233                           ;!ABS                  0      0       0       4        0.0%
-   234                           ;!DATA                 0      0       0       5        0.0%
-   235                           ;!BITBANK0             E      0       0       6        0.0%
-   236                           
-   237                           	global	_main
-   238                           
-   239 ;; *************** function _main *****************
-   240 ;; Defined at:
-   241 ;;		line 29 in file "main.c"
-   242 ;; Parameters:    Size  Location     Type
-   243 ;;		None
-   244 ;; Auto vars:     Size  Location     Type
-   245 ;;  currentValue    1    3[BANK0 ] unsigned char 
-   246 ;;  count           1    4[BANK0 ] unsigned char 
-   247 ;;  startValue      1    2[BANK0 ] unsigned char 
-   248 ;; Return value:  Size  Location     Type
-   249 ;;                  1   17[None  ] void 
-   250 ;; Registers used:
-   251 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+0, btemp+1, btemp+2, btemp+3, pclath, cstack
-   252 ;; Tracked objects:
-   253 ;;		On entry : B00/0
-   254 ;;		On exit  : 0/0
-   255 ;;		Unchanged: 0/0
-   256 ;; Data sizes:     COMMON   BANK0
-   257 ;;      Params:         0       0
-   258 ;;      Locals:         0       3
-   259 ;;      Temps:          0       1
-   260 ;;      Totals:         0       4
-   261 ;;Total ram usage:        4 bytes
-   262 ;; Hardware stack levels required when called:    1
-   263 ;; This function calls:
-   264 ;;		_getLightValue
-   265 ;; This function is called by:
-   266 ;;		Startup code after reset
-   267 ;; This function uses a non-reentrant model
-   268 ;;
-   269                           psect	maintext,global,class=CODE,delta=2,split=1,group=0
-   270                           	file	"main.c"
-   271                           	line	29
-   272                           global __pmaintext
-   273                           __pmaintext:	;psect for function _main
-   274  003                     psect	maintext
-   275                           	file	"main.c"
-   276                           	line	29
-   277                           	global	__size_of_main
-   278                           	__size_of_main	equ	__end_of_main-_main
-   279  0065                     	
-   280                           _main:	
-   281  003                     ;incstack = 0
-   282                           	opt	stack 1
-   283                           ; Regs used in _main: [wreg-fsr0h+status,2-btemp+3+pclath+cstack]
-   284                           	line	31
-   285                           	
-   286                           l556:	
-   287  003                     ;main.c: 31:     TRISGPIO = 0x01;
-   288                           	movlw	low(01h)
-   289  003  C01                	tris	0x6
-   290  004  006                	line	32
-   291                           	
-   292                           l558:	
-   293  005                     ;main.c: 32:     ADCON0 = 0x41;
-   294                           	movlw	low(041h)
-   295  005  C41                	movwf	(7)	;volatile
-   296  006  027                	line	34
-   297                           	
-   298                           l560:	
-   299  007                     ;main.c: 34:     char startValue = getLightValue();
-   300                           	fcall	entry__getLightValue
-   301  007  9FE                	movf	(0+?_getLightValue),w
-   302  008  210                	movwf	(main@startValue)
-   303  009  032                	line	35
-   304                           	
-   305                           l562:	
-   306  00A                     ;main.c: 35:     char count = 0;
-   307                           	clrf	(main@count)
-   308  00A  074                	goto	l564
-   309  00B  A0C                	line	37
-   310                           ;main.c: 37:     while (1) {
-   311                           	
-   312                           l18:	
-   313  00C                     	line	38
-   314                           	
-   315                           l564:	
-   316  00C                     ;main.c: 38:         char currentValue = getLightValue();
-   317                           	fcall	entry__getLightValue
-   318  00C  9FE                	movf	(0+?_getLightValue),w
-   319  00D  210                	movwf	(main@currentValue)
-   320  00E  033                	line	39
-   321                           	
-   322                           l566:	
-   323  00F                     ;main.c: 39:         if (currentValue > startValue + 5 && count < 100)
-   324                           	movf	(main@currentValue),w
-   325  00F  213                	movwf	btemp+0
-   326  010  03C                	clrf	btemp+1
-   327  011  07D                	movlw	05h
-   328  012  C05                	movwf	btemp+2
-   329  013  03E                	clrf	btemp+3
-   330  014  07F                	movf	(main@startValue),w
-   331  015  212                	addwf	btemp+2
-   332  016  1FE                	skipnc
-   333  017  603                	incf	btemp+3
-   334  018  2BF                	movf	1+wtemp1,w
-   335  019  21F                	xorlw	80h
-   336  01A  F80                	movwf	(??_main+0)+0
-   337  01B  031                	movf	1+wtemp0,w
-   338  01C  21D                	xorlw	80h
-   339  01D  F80                	subwf	(??_main+0)+0,w
-   340  01E  091                	skipz
-   341  01F  743                	goto	u75
-   342  020  A23                	movf	0+wtemp0,w
-   343  021  21C                	subwf	0+wtemp1,w
-   344  022  09E                u75:
-   345  023                     
-   346                           	skipnc
-   347  023  603                	goto	u71
-   348  024  A26                	goto	u70
-   349  025  A27                u71:
-   350  026                     	goto	l572
-   351  026  A32                u70:
-   352  027                     	
-   353                           l568:	
-   354  027                     	movlw	low(064h)
-   355  027  C64                	subwf	(main@count),w
-   356  028  094                	skipnc
-   357  029  603                	goto	u81
-   358  02A  A2C                	goto	u80
-   359  02B  A2D                u81:
-   360  02C                     	goto	l572
-   361  02C  A32                u80:
-   362  02D                     	line	41
-   363                           	
-   364                           l570:	
-   365  02D                     ;main.c: 40:         {;main.c: 41:             count++;
-   366                           	movlw	low(01h)
-   367  02D  C01                	movwf	btemp+3
-   368  02E  03F                	movf	btemp+3,w
-   369  02F  21F                	addwf	(main@count),f
-   370  030  1F4                	goto	l572
-   371  031  A32                	line	42
-   372                           ;main.c: 42:         }
-   373                           	
-   374                           l19:	
-   375  032                     	line	43
-   376                           	
-   377                           l572:	
-   378  032                     ;main.c: 43:         if (currentValue < startValue - 5 && count > 0)
-   379                           	movlw	0FBh
-   380  032  CFB                	movwf	btemp+0
-   381  033  03C                	movlw	0FFh
-   382  034  CFF                	movwf	btemp+1
-   383  035  03D                	movf	(main@startValue),w
-   384  036  212                	addwf	0+wtemp0,w
-   385  037  1DC                	movwf	wtemp1
-   386  038  03E                	movf	1+wtemp0,w
-   387  039  21D                	skipnc
-   388  03A  603                	incf	1+wtemp0,w
-   389  03B  29D                	movwf	(wtemp1)+1
-   390  03C  03F                	movf	(main@currentValue),w
-   391  03D  213                	movwf	btemp+0
-   392  03E  03C                	clrf	btemp+1
-   393  03F  07D                	movf	1+wtemp0,w
-   394  040  21D                	xorlw	80h
-   395  041  F80                	movwf	(??_main+0)+0
-   396  042  031                	movf	1+wtemp1,w
-   397  043  21F                	xorlw	80h
-   398  044  F80                	subwf	(??_main+0)+0,w
-   399  045  091                	skipz
-   400  046  743                	goto	u95
-   401  047  A4A                	movf	0+wtemp1,w
-   402  048  21E                	subwf	0+wtemp0,w
-   403  049  09C                u95:
-   404  04A                     
-   405                           	skipnc
-   406  04A  603                	goto	u91
-   407  04B  A4D                	goto	u90
-   408  04C  A4E                u91:
-   409  04D                     	goto	l20
-   410  04D  A55                u90:
-   411  04E                     	
-   412                           l574:	
-   413  04E                     	movf	((main@count)),w
-   414  04E  214                	btfsc	status,2
-   415  04F  643                	goto	u101
-   416  050  A52                	goto	u100
-   417  051  A53                u101:
-   418  052                     	goto	l20
-   419  052  A55                u100:
-   420  053                     	line	45
-   421                           	
-   422                           l576:	
-   423  053                     ;main.c: 44:         {;main.c: 45:             count--;
-   424                           	movlw	01h
-   425  053  C01                	subwf	(main@count),f
-   426  054  0B4                	line	46
-   427                           ;main.c: 46:         }
-   428                           	
-   429                           l20:	
-   430  055                     	line	47
-   431                           ;main.c: 47:         if (count == 100)
-   432                           		movlw	100
-   433  055  C64                	xorwf	((main@count)),w
-   434  056  194                	btfss	status,2
-   435  057  743                	goto	u111
-   436  058  A5A                	goto	u110
-   437  059  A5B                u111:
-   438  05A                     	goto	l580
-   439  05A  A5E                u110:
-   440  05B                     	line	49
-   441                           	
-   442                           l578:	
-   443  05B                     ;main.c: 48:         {;main.c: 49:             GPIO = 0x04;
-   444                           	movlw	low(04h)
-   445  05B  C04                	movwf	(6)	;volatile
-   446  05C  026                	goto	l580
-   447  05D  A5E                	line	50
-   448                           ;main.c: 50:         }
-   449                           	
-   450                           l21:	
-   451  05E                     	line	51
-   452                           	
-   453                           l580:	
-   454  05E                     ;main.c: 51:         if (count == 0)
-   455                           	movf	((main@count)),w
-   456  05E  214                	btfss	status,2
-   457  05F  743                	goto	u121
-   458  060  A62                	goto	u120
-   459  061  A63                u121:
-   460  062                     	goto	l564
-   461  062  A0C                u120:
-   462  063                     	line	53
-   463                           	
-   464                           l582:	
-   465  063                     ;main.c: 52:         {;main.c: 53:             GPIO = 0x00;
-   466                           	clrf	(6)	;volatile
-   467  063  066                	goto	l564
-   468  064  A0C                	line	54
-   469                           ;main.c: 54:         }
-   470                           	
-   471                           l22:	
-   472  065                     	goto	l564
-   473  065  A0C                	line	55
-   474                           ;main.c: 55:     }
-   475                           	
-   476                           l23:	
-   477  066                     	goto	l564
-   478  066  A0C                	
-   479                           l24:	
-   480  067                     	line	56
-   481                           	
-   482                           l25:	
-   483  067                     	global	start
-   484                           	ljmp	start
-   485  067  A00                	opt stack 0
-   486                           GLOBAL	__end_of_main
-   487                           	__end_of_main:
-   488  068                     	signat	_main,89
-   489                           	global	_getLightValue
-   490                           
-   491 ;; *************** function _getLightValue *****************
-   492 ;; Defined at:
-   493 ;;		line 23 in file "main.c"
-   494 ;; Parameters:    Size  Location     Type
-   495 ;;		None
-   496 ;; Auto vars:     Size  Location     Type
-   497 ;;		None
-   498 ;; Return value:  Size  Location     Type
-   499 ;;                  1    0[BANK0 ] unsigned char 
-   500 ;; Registers used:
-   501 ;;		wreg, fsr0l, fsr0h, status,2
-   502 ;; Tracked objects:
-   503 ;;		On entry : 0/0
-   504 ;;		On exit  : 0/0
-   505 ;;		Unchanged: 0/0
-   506 ;; Data sizes:     COMMON   BANK0
-   507 ;;      Params:         0       1
-   508 ;;      Locals:         0       0
-   509 ;;      Temps:          0       0
-   510 ;;      Totals:         0       1
-   511 ;;Total ram usage:        1 bytes
-   512 ;; Hardware stack levels used:    1
-   513 ;; This function calls:
-   514 ;;		Nothing
-   515 ;; This function is called by:
-   516 ;;		_main
-   517 ;; This function uses a non-reentrant model
-   518 ;;
-   519                           psect	text1,local,class=CODE,delta=2,merge=1,group=0
-   520                           	line	23
-   521                           global __ptext1
-   522                           __ptext1:	;psect for function _getLightValue
-   523  068                     psect	text1
-   524                           	file	"main.c"
-   525                           	line	23
-   526                           	global	__size_of_getLightValue
-   527                           	__size_of_getLightValue	equ	__end_of_getLightValue-_getLightValue
-   528  0005                     	
-   529                           _getLightValue:	
-   530  068                     ;incstack = 0
-   531                           	opt	stack 1
-   532                           ; Regs used in _getLightValue: [wreg-fsr0h+status,2]
-   533                           psect	jmp_tab,class=ENTRY,delta=2
-   534                           global __pjmp_tab
-   535                           __pjmp_tab:
-   536  0FE                     	global	entry__getLightValue
-   537                           entry__getLightValue:
-   538  0FE                     	ljmp	_getLightValue
-   539  0FE  A68                
-   540                           psect	text1
-   541                           	line	25
-   542                           	
-   543                           l550:	
-   544  068                     ;main.c: 25:     ADCON0bits.GO = 1;
-   545                           	bsf	(7),1	;volatile
-   546  068  527                	line	26
-   547                           	
-   548                           l552:	
-   549  069                     ;main.c: 26:     return ~ADRES;
-   550                           	comf	(8),w	;volatile
-   551  069  248                	movwf	(?_getLightValue)
-   552  06A  030                	goto	l13
-   553  06B  A6C                	
-   554                           l554:	
-   555  06C                     	line	27
-   556                           	
-   557                           l13:	
-   558  06C                     	retlw 0
-   559  06C  800                	opt stack 0
-   560                           GLOBAL	__end_of_getLightValue
-   561                           	__end_of_getLightValue:
-   562  06D                     	signat	_getLightValue,89
-   563                           global	___latbits
-   564                           ___latbits	equ	0
-   565  0000                     	global	btemp
-   566                           	btemp set 01Ch
-   567  001C                     
-   568                           	DABS	1,28,4	;btemp
-   569                           	global	wtemp0
-   570                           	wtemp0 set btemp+0
-   571  001C                     	global	wtemp1
-   572                           	wtemp1 set btemp+2
-   573  001E                     	global	ttemp0
-   574                           	ttemp0 set btemp+0
-   575  001C                     	global	ltemp0
-   576                           	ltemp0 set btemp+0
-   577  001C                     	end
+   224                           ;!
+   225                           ;!Call Graph Tables:
+   226                           ;!
+   227                           ;! ---------------------------------------------------------------------------------
+   228                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   229                           ;! ---------------------------------------------------------------------------------
+   230                           ;! (0) _main                                                 4     4      0     317
+   231                           ;!                                              7 BANK0      4     4      0
+   232                           ;!                          _calibrate
+   233                           ;!                              _flash
+   234                           ;!                      _getLightValue
+   235                           ;! ---------------------------------------------------------------------------------
+   236                           ;! (1) _flash                                                2     2      0       0
+   237                           ;!                                              0 BANK0      2     2      0
+   238                           ;! ---------------------------------------------------------------------------------
+   239                           ;! (1) _calibrate                                            6     5      1     136
+   240                           ;!                                              1 BANK0      6     5      1
+   241                           ;!                      _getLightValue
+   242                           ;! ---------------------------------------------------------------------------------
+   243                           ;! (1) _getLightValue                                        1     0      1       0
+   244                           ;!                                              0 BANK0      1     0      1
+   245                           ;! ---------------------------------------------------------------------------------
+   246                           ;! Estimated maximum stack depth 1
+   247                           ;! ---------------------------------------------------------------------------------
+   248                           ;!
+   249                           ;! Call Graph Graphs:
+   250                           ;!
+   251                           ;! _main (ROOT)
+   252                           ;!   _calibrate
+   253                           ;!     _getLightValue
+   254                           ;!   _flash
+   255                           ;!   _getLightValue
+   256                           ;!
+   257                           
+   258                           ;! Address spaces:
+   259                           
+   260                           ;!Name               Size   Autos  Total    Cost      Usage
+   261                           ;!BITCOMMON            0      0       0       0        0.0%
+   262                           ;!NULL                 0      0       0       0        0.0%
+   263                           ;!CODE                 0      0       0       0        0.0%
+   264                           ;!BITSFR0              0      0       0       1        0.0%
+   265                           ;!SFR0                 0      0       0       1        0.0%
+   266                           ;!COMMON               0      0       0       1        0.0%
+   267                           ;!STACK                0      0       0       2        0.0%
+   268                           ;!BANK0                E      B       B       3       78.6%
+   269                           ;!ABS                  0      0       0       4        0.0%
+   270                           ;!DATA                 0      0       0       5        0.0%
+   271                           ;!BITBANK0             E      0       0       6        0.0%
+   272                           
+   273                           	global	_main
+   274                           
+   275 ;; *************** function _main *****************
+   276 ;; Defined at:
+   277 ;;		line 60 in file "main.c"
+   278 ;; Parameters:    Size  Location     Type
+   279 ;;		None
+   280 ;; Auto vars:     Size  Location     Type
+   281 ;;  currentValue    1    9[BANK0 ] unsigned char 
+   282 ;;  score           1   10[BANK0 ] unsigned char 
+   283 ;;  startValue      1    8[BANK0 ] unsigned char 
+   284 ;; Return value:  Size  Location     Type
+   285 ;;                  1   33[None  ] void 
+   286 ;; Registers used:
+   287 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+0, btemp+1, btemp+2, btemp+3, pclath, cstack
+   288 ;; Tracked objects:
+   289 ;;		On entry : B00/0
+   290 ;;		On exit  : 0/0
+   291 ;;		Unchanged: 0/0
+   292 ;; Data sizes:     COMMON   BANK0
+   293 ;;      Params:         0       0
+   294 ;;      Locals:         0       3
+   295 ;;      Temps:          0       1
+   296 ;;      Totals:         0       4
+   297 ;;Total ram usage:        4 bytes
+   298 ;; Hardware stack levels required when called:    2
+   299 ;; This function calls:
+   300 ;;		_calibrate
+   301 ;;		_flash
+   302 ;;		_getLightValue
+   303 ;; This function is called by:
+   304 ;;		Startup code after reset
+   305 ;; This function uses a non-reentrant model
+   306 ;;
+   307                           psect	maintext,global,class=CODE,delta=2,split=1,group=0
+   308                           	file	"main.c"
+   309                           	line	60
+   310                           global __pmaintext
+   311                           __pmaintext:	;psect for function _main
+   312  003                     psect	maintext
+   313                           	file	"main.c"
+   314                           	line	60
+   315                           	global	__size_of_main
+   316                           	__size_of_main	equ	__end_of_main-_main
+   317  006D                     	
+   318                           _main:	
+   319  003                     ;incstack = 0
+   320                           	opt	stack 0
+   321                           ; Regs used in _main: [wreg-fsr0h+status,2-btemp+3+pclath+cstack]
+   322                           	line	63
+   323                           	
+   324                           l620:	
+   325  003                     ;main.c: 63:     OSCCALbits.FOSC4 = 0;
+   326                           	bcf	(5),0	;volatile
+   327  003  405                	line	64
+   328                           	
+   329                           l622:	
+   330  004                     ;main.c: 64:     OPTION = 0b01000000;
+   331                           	movlw	low(040h)
+   332  004  C40                	option
+   333  005  002                	line	65
+   334                           	
+   335                           l624:	
+   336  006                     ;main.c: 65:     TRISGPIO = 0x01;
+   337                           	movlw	low(01h)
+   338  006  C01                	tris	0x6
+   339  007  006                	line	66
+   340                           	
+   341                           l626:	
+   342  008                     ;main.c: 66:     ADCON0 = 0x41;
+   343                           	movlw	low(041h)
+   344  008  C41                	movwf	(7)	;volatile
+   345  009  027                	line	67
+   346                           	
+   347                           l628:	
+   348  00A                     ;main.c: 67:     GPIO = 0x00;
+   349                           	clrf	(6)	;volatile
+   350  00A  066                	line	68
+   351                           	
+   352                           l630:	
+   353  00B                     ;main.c: 68:     ADRES = 0x00;
+   354                           	clrf	(8)	;volatile
+   355  00B  068                	line	70
+   356                           	
+   357                           l632:	
+   358  00C                     ;main.c: 70:     flash();
+   359                           	fcall	entry__flash
+   360  00C  9FC                	line	72
+   361                           	
+   362                           l634:	
+   363  00D                     ;main.c: 72:     char score = 50;
+   364                           	movlw	low(032h)
+   365  00D  C32                	movwf	(main@score)
+   366  00E  03A                	line	74
+   367                           	
+   368                           l636:	
+   369  00F                     ;main.c: 74:     char startValue = calibrate();
+   370                           	fcall	entry__calibrate
+   371  00F  9FD                	movf	(0+?_calibrate),w
+   372  010  211                	movwf	(main@startValue)
+   373  011  038                	line	76
+   374                           	
+   375                           l638:	
+   376  012                     ;main.c: 76:     flash();
+   377                           	fcall	entry__flash
+   378  012  9FC                	goto	l640
+   379  013  A14                	line	78
+   380                           ;main.c: 78:     while (1)
+   381                           	
+   382                           l34:	
+   383  014                     	line	80
+   384                           	
+   385                           l640:	
+   386  014                     ;main.c: 79:     {;main.c: 80:         char currentValue = getLightValue();
+   387                           	fcall	entry__getLightValue
+   388  014  9FE                	movf	(0+?_getLightValue),w
+   389  015  210                	movwf	(main@currentValue)
+   390  016  039                	line	83
+   391                           	
+   392                           l642:	
+   393  017                     ;main.c: 83:         if (currentValue > startValue + 5 && score < 100)
+   394                           	movf	(main@currentValue),w
+   395  017  219                	movwf	btemp+0
+   396  018  03C                	clrf	btemp+1
+   397  019  07D                	movlw	05h
+   398  01A  C05                	movwf	btemp+2
+   399  01B  03E                	clrf	btemp+3
+   400  01C  07F                	movf	(main@startValue),w
+   401  01D  218                	addwf	btemp+2
+   402  01E  1FE                	skipnc
+   403  01F  603                	incf	btemp+3
+   404  020  2BF                	movf	1+wtemp1,w
+   405  021  21F                	xorlw	80h
+   406  022  F80                	movwf	(??_main+0)+0
+   407  023  037                	movf	1+wtemp0,w
+   408  024  21D                	xorlw	80h
+   409  025  F80                	subwf	(??_main+0)+0,w
+   410  026  097                	skipz
+   411  027  743                	goto	u135
+   412  028  A2B                	movf	0+wtemp0,w
+   413  029  21C                	subwf	0+wtemp1,w
+   414  02A  09E                u135:
+   415  02B                     
+   416                           	skipnc
+   417  02B  603                	goto	u131
+   418  02C  A2E                	goto	u130
+   419  02D  A2F                u131:
+   420  02E                     	goto	l648
+   421  02E  A3A                u130:
+   422  02F                     	
+   423                           l644:	
+   424  02F                     	movlw	low(064h)
+   425  02F  C64                	subwf	(main@score),w
+   426  030  09A                	skipnc
+   427  031  603                	goto	u141
+   428  032  A34                	goto	u140
+   429  033  A35                u141:
+   430  034                     	goto	l648
+   431  034  A3A                u140:
+   432  035                     	line	85
+   433                           	
+   434                           l646:	
+   435  035                     ;main.c: 84:         {;main.c: 85:             score++;
+   436                           	movlw	low(01h)
+   437  035  C01                	movwf	btemp+3
+   438  036  03F                	movf	btemp+3,w
+   439  037  21F                	addwf	(main@score),f
+   440  038  1FA                	goto	l648
+   441  039  A3A                	line	86
+   442                           ;main.c: 86:         }
+   443                           	
+   444                           l35:	
+   445  03A                     	line	88
+   446                           	
+   447                           l648:	
+   448  03A                     ;main.c: 88:         if (currentValue < startValue - 5 && score > 0)
+   449                           	movlw	0FBh
+   450  03A  CFB                	movwf	btemp+0
+   451  03B  03C                	movlw	0FFh
+   452  03C  CFF                	movwf	btemp+1
+   453  03D  03D                	movf	(main@startValue),w
+   454  03E  218                	addwf	0+wtemp0,w
+   455  03F  1DC                	movwf	wtemp1
+   456  040  03E                	movf	1+wtemp0,w
+   457  041  21D                	skipnc
+   458  042  603                	incf	1+wtemp0,w
+   459  043  29D                	movwf	(wtemp1)+1
+   460  044  03F                	movf	(main@currentValue),w
+   461  045  219                	movwf	btemp+0
+   462  046  03C                	clrf	btemp+1
+   463  047  07D                	movf	1+wtemp0,w
+   464  048  21D                	xorlw	80h
+   465  049  F80                	movwf	(??_main+0)+0
+   466  04A  037                	movf	1+wtemp1,w
+   467  04B  21F                	xorlw	80h
+   468  04C  F80                	subwf	(??_main+0)+0,w
+   469  04D  097                	skipz
+   470  04E  743                	goto	u155
+   471  04F  A52                	movf	0+wtemp1,w
+   472  050  21E                	subwf	0+wtemp0,w
+   473  051  09C                u155:
+   474  052                     
+   475                           	skipnc
+   476  052  603                	goto	u151
+   477  053  A55                	goto	u150
+   478  054  A56                u151:
+   479  055                     	goto	l36
+   480  055  A5D                u150:
+   481  056                     	
+   482                           l650:	
+   483  056                     	movf	((main@score)),w
+   484  056  21A                	btfsc	status,2
+   485  057  643                	goto	u161
+   486  058  A5A                	goto	u160
+   487  059  A5B                u161:
+   488  05A                     	goto	l36
+   489  05A  A5D                u160:
+   490  05B                     	line	90
+   491                           	
+   492                           l652:	
+   493  05B                     ;main.c: 89:         {;main.c: 90:             score--;
+   494                           	movlw	01h
+   495  05B  C01                	subwf	(main@score),f
+   496  05C  0BA                	line	91
+   497                           ;main.c: 91:         }
+   498                           	
+   499                           l36:	
+   500  05D                     	line	93
+   501                           ;main.c: 93:         if (score == 100)
+   502                           		movlw	100
+   503  05D  C64                	xorwf	((main@score)),w
+   504  05E  19A                	btfss	status,2
+   505  05F  743                	goto	u171
+   506  060  A62                	goto	u170
+   507  061  A63                u171:
+   508  062                     	goto	l656
+   509  062  A66                u170:
+   510  063                     	line	95
+   511                           	
+   512                           l654:	
+   513  063                     ;main.c: 94:         {;main.c: 95:             GPIO = 0x04;
+   514                           	movlw	low(04h)
+   515  063  C04                	movwf	(6)	;volatile
+   516  064  026                	goto	l656
+   517  065  A66                	line	96
+   518                           ;main.c: 96:         }
+   519                           	
+   520                           l37:	
+   521  066                     	line	98
+   522                           	
+   523                           l656:	
+   524  066                     ;main.c: 98:         if (score == 0)
+   525                           	movf	((main@score)),w
+   526  066  21A                	btfss	status,2
+   527  067  743                	goto	u181
+   528  068  A6A                	goto	u180
+   529  069  A6B                u181:
+   530  06A                     	goto	l640
+   531  06A  A14                u180:
+   532  06B                     	line	100
+   533                           	
+   534                           l658:	
+   535  06B                     ;main.c: 99:         {;main.c: 100:             GPIO = 0x00;
+   536                           	clrf	(6)	;volatile
+   537  06B  066                	goto	l640
+   538  06C  A14                	line	101
+   539                           ;main.c: 101:         }
+   540                           	
+   541                           l38:	
+   542  06D                     	goto	l640
+   543  06D  A14                	line	102
+   544                           ;main.c: 102:     }
+   545                           	
+   546                           l39:	
+   547  06E                     	goto	l640
+   548  06E  A14                	
+   549                           l40:	
+   550  06F                     	line	103
+   551                           	
+   552                           l41:	
+   553  06F                     	global	start
+   554                           	ljmp	start
+   555  06F  A00                	opt stack 0
+   556                           GLOBAL	__end_of_main
+   557                           	__end_of_main:
+   558  070                     	signat	_main,89
+   559                           	global	_flash
+   560                           
+   561 ;; *************** function _flash *****************
+   562 ;; Defined at:
+   563 ;;		line 33 in file "main.c"
+   564 ;; Parameters:    Size  Location     Type
+   565 ;;		None
+   566 ;; Auto vars:     Size  Location     Type
+   567 ;;		None
+   568 ;; Return value:  Size  Location     Type
+   569 ;;                  1   21[None  ] void 
+   570 ;; Registers used:
+   571 ;;		wreg, fsr0l, fsr0h, status,2
+   572 ;; Tracked objects:
+   573 ;;		On entry : 0/0
+   574 ;;		On exit  : 0/0
+   575 ;;		Unchanged: 0/0
+   576 ;; Data sizes:     COMMON   BANK0
+   577 ;;      Params:         0       0
+   578 ;;      Locals:         0       0
+   579 ;;      Temps:          0       2
+   580 ;;      Totals:         0       2
+   581 ;;Total ram usage:        2 bytes
+   582 ;; Hardware stack levels used:    1
+   583 ;; This function calls:
+   584 ;;		Nothing
+   585 ;; This function is called by:
+   586 ;;		_main
+   587 ;; This function uses a non-reentrant model
+   588 ;;
+   589                           psect	text1,local,class=CODE,delta=2,merge=1,group=0
+   590                           	line	33
+   591                           global __ptext1
+   592                           __ptext1:	;psect for function _flash
+   593  09D                     psect	text1
+   594                           	file	"main.c"
+   595                           	line	33
+   596                           	global	__size_of_flash
+   597                           	__size_of_flash	equ	__end_of_flash-_flash
+   598  000D                     	
+   599                           _flash:	
+   600  09D                     ;incstack = 0
+   601                           	opt	stack 1
+   602                           ; Regs used in _flash: [wreg-fsr0h+status,2]
+   603                           psect	jmp_tab,class=ENTRY,delta=2
+   604                           global __pjmp_tab
+   605                           __pjmp_tab:
+   606  0FC                     	global	entry__flash
+   607                           entry__flash:
+   608  0FC                     	ljmp	_flash
+   609  0FC  A9D                
+   610                           psect	text1
+   611                           	line	35
+   612                           	
+   613                           l602:	
+   614  09D                     ;main.c: 35:     GPIO = 0x04;
+   615                           	movlw	low(04h)
+   616  09D  C04                	movwf	(6)	;volatile
+   617  09E  026                	line	36
+   618                           ;main.c: 36:     _delay((unsigned long)((10)*(8000000/4000.0)));
+   619                           	opt asmopt_push
+   620                           opt asmopt_off
+   621                           movlw	26
+   622  09F  C1A                movwf	((??_flash+0)+0+1),f
+   623  0A0  031                	movlw	248
+   624  0A1  CF8                movwf	((??_flash+0)+0),f
+   625  0A2  030                	u197:
+   626  0A3                     decfsz	((??_flash+0)+0),f
+   627  0A3  2F0                	goto	u197
+   628  0A4  AA3                	decfsz	((??_flash+0)+0+1),f
+   629  0A5  2F1                	goto	u197
+   630  0A6  AA3                	nop
+   631  0A7  000                opt asmopt_pop
+   632                           
+   633                           	line	37
+   634                           	
+   635                           l604:	
+   636  0A8                     ;main.c: 37:     GPIO = 0x00;
+   637                           	clrf	(6)	;volatile
+   638  0A8  066                	line	38
+   639                           	
+   640                           l22:	
+   641  0A9                     	retlw 0
+   642  0A9  800                	opt stack 0
+   643                           GLOBAL	__end_of_flash
+   644                           	__end_of_flash:
+   645  0AA                     	signat	_flash,89
+   646                           	global	_calibrate
+   647                           
+   648 ;; *************** function _calibrate *****************
+   649 ;; Defined at:
+   650 ;;		line 40 in file "main.c"
+   651 ;; Parameters:    Size  Location     Type
+   652 ;;		None
+   653 ;; Auto vars:     Size  Location     Type
+   654 ;;  newValue        1    6[BANK0 ] unsigned char 
+   655 ;;  baseline        1    5[BANK0 ] unsigned char 
+   656 ;;  count           1    4[BANK0 ] unsigned char 
+   657 ;; Return value:  Size  Location     Type
+   658 ;;                  1    1[BANK0 ] unsigned char 
+   659 ;; Registers used:
+   660 ;;		wreg, fsr0l, fsr0h, status,2, pclath, cstack
+   661 ;; Tracked objects:
+   662 ;;		On entry : 0/0
+   663 ;;		On exit  : 0/0
+   664 ;;		Unchanged: 0/0
+   665 ;; Data sizes:     COMMON   BANK0
+   666 ;;      Params:         0       1
+   667 ;;      Locals:         0       3
+   668 ;;      Temps:          0       2
+   669 ;;      Totals:         0       6
+   670 ;;Total ram usage:        6 bytes
+   671 ;; Hardware stack levels used:    1
+   672 ;; Hardware stack levels required when called:    1
+   673 ;; This function calls:
+   674 ;;		_getLightValue
+   675 ;; This function is called by:
+   676 ;;		_main
+   677 ;; This function uses a non-reentrant model
+   678 ;;
+   679                           psect	text2,local,class=CODE,delta=2,merge=1,group=0
+   680                           	line	40
+   681                           global __ptext2
+   682                           __ptext2:	;psect for function _calibrate
+   683  070                     psect	text2
+   684                           	file	"main.c"
+   685                           	line	40
+   686                           	global	__size_of_calibrate
+   687                           	__size_of_calibrate	equ	__end_of_calibrate-_calibrate
+   688  002D                     	
+   689                           _calibrate:	
+   690  070                     ;incstack = 0
+   691                           	opt	stack 0
+   692                           ; Regs used in _calibrate: [wreg-fsr0h+status,2+pclath+cstack]
+   693                           psect	jmp_tab
+   694                           	global	entry__calibrate
+   695                           entry__calibrate:
+   696  0FD                     	ljmp	_calibrate
+   697  0FD  A70                
+   698                           psect	text2
+   699                           	line	42
+   700                           	
+   701                           l606:	
+   702  070                     ;main.c: 42:     char count = 0;
+   703                           	clrf	(calibrate@count)
+   704  070  074                	line	43
+   705                           ;main.c: 43:     char baseline = 0;
+   706                           	clrf	(calibrate@baseline)
+   707  071  075                	line	45
+   708                           ;main.c: 45:     while (count++ < 254)
+   709                           	goto	l25
+   710  072  A8D                	
+   711                           l26:	
+   712  073                     	line	47
+   713                           	
+   714                           l608:	
+   715  073                     ;main.c: 46:     {;main.c: 47:         char newValue = getLightValue();
+   716                           	fcall	entry__getLightValue
+   717  073  9FE                	movf	(0+?_getLightValue),w
+   718  074  210                	movwf	(calibrate@newValue)
+   719  075  036                	line	49
+   720                           	
+   721                           l610:	
+   722  076                     ;main.c: 49:         if (newValue > baseline && newValue < 249)
+   723                           	movf	(calibrate@newValue),w
+   724  076  216                	subwf	(calibrate@baseline),w
+   725  077  095                	skipnc
+   726  078  603                	goto	u101
+   727  079  A7B                	goto	u100
+   728  07A  A7C                u101:
+   729  07B                     	goto	l27
+   730  07B  A84                u100:
+   731  07C                     	
+   732                           l612:	
+   733  07C                     	movlw	low(0F9h)
+   734  07C  CF9                	subwf	(calibrate@newValue),w
+   735  07D  096                	skipnc
+   736  07E  603                	goto	u111
+   737  07F  A81                	goto	u110
+   738  080  A82                u111:
+   739  081                     	goto	l27
+   740  081  A84                u110:
+   741  082                     	line	51
+   742                           	
+   743                           l614:	
+   744  082                     ;main.c: 50:         {;main.c: 51:             baseline = newValue;
+   745                           	movf	(calibrate@newValue),w
+   746  082  216                	movwf	(calibrate@baseline)
+   747  083  035                	line	52
+   748                           ;main.c: 52:         }
+   749                           	
+   750                           l27:	
+   751  084                     	line	54
+   752                           ;main.c: 54:         _delay((unsigned long)((2)*(8000000/4000.0)));
+   753                           	opt asmopt_push
+   754                           opt asmopt_off
+   755                           movlw	6
+   756  084  C06                movwf	((??_calibrate+0)+0+1),f
+   757  085  033                	movlw	48
+   758  086  C30                movwf	((??_calibrate+0)+0),f
+   759  087  032                	u207:
+   760  088                     decfsz	((??_calibrate+0)+0),f
+   761  088  2F2                	goto	u207
+   762  089  A88                	decfsz	((??_calibrate+0)+0+1),f
+   763  08A  2F3                	goto	u207
+   764  08B  A88                	nop
+   765  08C  000                opt asmopt_pop
+   766                           
+   767                           	line	55
+   768                           ;main.c: 55:     }
+   769                           	
+   770                           l25:	
+   771  08D                     	line	45
+   772                           ;main.c: 45:     while (count++ < 254)
+   773                           	movlw	01h
+   774  08D  C01                	addwf	(calibrate@count),f
+   775  08E  1F4                	movlw	-01h
+   776  08F  CFF                	addwf	(calibrate@count),w
+   777  090  1D4                	movwf	(??_calibrate+0)+0
+   778  091  032                	movlw	0FEh
+   779  092  CFE                	subwf	(??_calibrate+0)+0,w
+   780  093  092                	skipc
+   781  094  703                	goto	u121
+   782  095  A97                	goto	u120
+   783  096  A98                u121:
+   784  097                     	goto	l608
+   785  097  A73                u120:
+   786  098                     	goto	l616
+   787  098  A99                	
+   788                           l28:	
+   789  099                     	line	57
+   790                           	
+   791                           l616:	
+   792  099                     ;main.c: 57:     return baseline;
+   793                           	movf	(calibrate@baseline),w
+   794  099  215                	movwf	(?_calibrate)
+   795  09A  031                	goto	l29
+   796  09B  A9C                	
+   797                           l618:	
+   798  09C                     	line	58
+   799                           	
+   800                           l29:	
+   801  09C                     	retlw 0
+   802  09C  800                	opt stack 0
+   803                           GLOBAL	__end_of_calibrate
+   804                           	__end_of_calibrate:
+   805  09D                     	signat	_calibrate,89
+   806                           	global	_getLightValue
+   807                           
+   808 ;; *************** function _getLightValue *****************
+   809 ;; Defined at:
+   810 ;;		line 27 in file "main.c"
+   811 ;; Parameters:    Size  Location     Type
+   812 ;;		None
+   813 ;; Auto vars:     Size  Location     Type
+   814 ;;		None
+   815 ;; Return value:  Size  Location     Type
+   816 ;;                  1    0[BANK0 ] unsigned char 
+   817 ;; Registers used:
+   818 ;;		wreg, fsr0l, fsr0h, status,2
+   819 ;; Tracked objects:
+   820 ;;		On entry : 0/0
+   821 ;;		On exit  : 0/0
+   822 ;;		Unchanged: 0/0
+   823 ;; Data sizes:     COMMON   BANK0
+   824 ;;      Params:         0       1
+   825 ;;      Locals:         0       0
+   826 ;;      Temps:          0       0
+   827 ;;      Totals:         0       1
+   828 ;;Total ram usage:        1 bytes
+   829 ;; Hardware stack levels used:    1
+   830 ;; This function calls:
+   831 ;;		Nothing
+   832 ;; This function is called by:
+   833 ;;		_calibrate
+   834 ;;		_main
+   835 ;; This function uses a non-reentrant model
+   836 ;;
+   837                           psect	text3,local,class=CODE,delta=2,merge=1,group=0
+   838                           	line	27
+   839                           global __ptext3
+   840                           __ptext3:	;psect for function _getLightValue
+   841  0AA                     psect	text3
+   842                           	file	"main.c"
+   843                           	line	27
+   844                           	global	__size_of_getLightValue
+   845                           	__size_of_getLightValue	equ	__end_of_getLightValue-_getLightValue
+   846  0005                     	
+   847                           _getLightValue:	
+   848  0AA                     ;incstack = 0
+   849                           	opt	stack 1
+   850                           ; Regs used in _getLightValue: [wreg-fsr0h+status,2]
+   851                           psect	jmp_tab
+   852                           	global	entry__getLightValue
+   853                           entry__getLightValue:
+   854  0FE                     	ljmp	_getLightValue
+   855  0FE  AAA                
+   856                           psect	text3
+   857                           	line	29
+   858                           	
+   859                           l596:	
+   860  0AA                     ;main.c: 29:     ADCON0bits.GO = 1;
+   861                           	bsf	(7),1	;volatile
+   862  0AA  527                	line	30
+   863                           	
+   864                           l598:	
+   865  0AB                     ;main.c: 30:     return ~ADRES;
+   866                           	comf	(8),w	;volatile
+   867  0AB  248                	movwf	(?_getLightValue)
+   868  0AC  030                	goto	l19
+   869  0AD  AAE                	
+   870                           l600:	
+   871  0AE                     	line	31
+   872                           	
+   873                           l19:	
+   874  0AE                     	retlw 0
+   875  0AE  800                	opt stack 0
+   876                           GLOBAL	__end_of_getLightValue
+   877                           	__end_of_getLightValue:
+   878  0AF                     	signat	_getLightValue,89
+   879                           global	___latbits
+   880                           ___latbits	equ	0
+   881  0000                     	global	btemp
+   882                           	btemp set 01Ch
+   883  001C                     
+   884                           	DABS	1,28,4	;btemp
+   885                           	global	wtemp0
+   886                           	wtemp0 set btemp+0
+   887  001C                     	global	wtemp1
+   888                           	wtemp1 set btemp+2
+   889  001E                     	global	ttemp0
+   890                           	ttemp0 set btemp+0
+   891  001C                     	global	ltemp0
+   892                           	ltemp0 set btemp+0
+   893  001C                     	end
 
 
 Data Sizes:
@@ -649,7 +965,7 @@ Data Sizes:
 Auto Spaces:
     Space          Size  Autos    Used
     COMMON            0      0       0
-    BANK0            14      5       5
+    BANK0            14     11      11
 
 Pointer List with Targets:
 
@@ -661,15 +977,25 @@ Critical Paths under _main in COMMON
 
 Critical Paths under _main in BANK0
 
-    _main->_getLightValue
+    _main->_calibrate
+    _calibrate->_getLightValue
 
 Call Graph Tables:
 
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 4     4      0     181
-                                              1 BANK0      4     4      0
+ (0) _main                                                 4     4      0     317
+                                              7 BANK0      4     4      0
+                          _calibrate
+                              _flash
+                      _getLightValue
+ ---------------------------------------------------------------------------------
+ (1) _flash                                                2     2      0       0
+                                              0 BANK0      2     2      0
+ ---------------------------------------------------------------------------------
+ (1) _calibrate                                            6     5      1     136
+                                              1 BANK0      6     5      1
                       _getLightValue
  ---------------------------------------------------------------------------------
  (1) _getLightValue                                        1     0      1       0
@@ -681,6 +1007,9 @@ Call Graph Tables:
  Call Graph Graphs:
 
  _main (ROOT)
+   _calibrate
+     _getLightValue
+   _flash
    _getLightValue
 
  Address spaces:
@@ -692,40 +1021,56 @@ BITSFR0              0      0       0       1        0.0%
 SFR0                 0      0       0       1        0.0%
 COMMON               0      0       0       1        0.0%
 STACK                0      0       0       2        0.0%
-BANK0                E      5       5       3       35.7%
+BANK0                E      B       B       3       78.6%
 ABS                  0      0       0       4        0.0%
 DATA                 0      0       0       5        0.0%
 BITBANK0             E      0       0       6        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.00 build -1524193055 
-Symbol Table                                                                                   Thu Sep 20 21:57:18 2018
+Symbol Table                                                                                   Mon Sep 24 01:30:43 2018
 
-            __CFG_CP$OFF 0000                       l20 0055                       l13 006C  
-                     l21 005E                       l22 0065                       l23 0066  
-                     l24 0067                       l25 0067                       l18 000C  
-                     l19 0032                       u70 0027                       u71 0026  
-                     u80 002D                       u81 002C                       u90 004E  
-                     u91 004D                       u75 0023                       u95 004A  
-                     fsr 0004                      l550 0068                      l552 0069  
-                    l560 0007                      l554 006C                      l570 002D  
-                    l562 000A                      l580 005E                      l572 0032  
-                    l564 000C                      l556 0003                      l582 0063  
-                    l574 004E                      l566 000F                      l558 0005  
-                    l576 0053                      l568 0027                      l578 005B  
-                    u100 0053                      u101 0052                      u110 005B  
-                    u111 005A                      u120 0063                      u121 0062  
-           __CFG_MCPU$ON 0000                     _GPIO 0006                     _main 0003  
-                   btemp 001C                     start 0000            __CFG_MCLRE$ON 0000  
-                  ?_main 0010                    _ADRES 0008            __CFG_WDTE$OFF 0000  
+            __CFG_CP$OFF 0000                       l22 00A9                       l40 006F  
+                     l25 008D                       l41 006F                       l26 0073  
+                     l34 0014                       l19 00AE                       l27 0084  
+                     l35 003A                       l28 0099                       l36 005D  
+                     l29 009C                       l37 0066                       l38 006D  
+                     l39 006E                       fsr 0004                      l600 00AE  
+                    l610 0076                      l602 009D                      l612 007C  
+                    l604 00A8                      l620 0003                      l614 0082  
+                    l606 0070                      l630 000B                      l622 0004  
+                    l616 0099                      l608 0073                      l640 0014  
+                    l632 000C                      l624 0006                      l618 009C  
+                    l650 0056                      l642 0017                      l634 000D  
+                    l626 0008                      l652 005B                      l644 002F  
+                    l636 000F                      l628 000A                      l654 0063  
+                    l646 0035                      l638 0012                      l656 0066  
+                    l648 003A                      l658 006B                      l596 00AA  
+                    l598 00AB                      u100 007C                      u101 007B  
+                    u110 0082                      u111 0081                      u120 0098  
+                    u121 0097                      u130 002F                      u131 002E  
+                    u140 0035                      u141 0034                      u150 0056  
+                    u207 0088                      u151 0055                      u135 002B  
+                    u160 005B                      u161 005A                      u170 0063  
+                    u171 0062                      u155 0052                      u180 006B  
+                    u181 006A                      u197 00A3             __CFG_MCPU$ON 0000  
+                   _GPIO 0006                     _main 0003                     btemp 001C  
+                   start 0000            __CFG_MCLRE$ON 0000                    ?_main 0010  
+                  _ADRES 0008            __CFG_WDTE$OFF 0000                    _flash 009D  
                   ltemp0 001C                    ttemp0 001C                    status 0003  
                   wtemp0 001C                    wtemp1 001E          __initialization 0001  
-           __end_of_main 0068                   ??_main 0011                   _ADCON0 0007  
-__end_of__initialization 0001           __pcstackCOMMON 0000    __end_of_getLightValue 006D  
-             __pmaintext 0003                  __ptext1 0068     end_of_initialization 0001  
-         main@startValue 0012         main@currentValue 0013      start_initialization 0001  
-       __CFG_IOSCFS$8MHZ 0000                ___latbits 0000            __pcstackBANK0 0010  
- __size_of_getLightValue 0005                __pjmp_tab 00FE                 _TRISGPIO 0006  
-          _getLightValue 0068               _ADCON0bits 0007                main@count 0014  
-         ?_getLightValue 0010            __size_of_main 0065      entry__getLightValue 00FE  
+           __end_of_main 0070                   ??_main 0017                   ?_flash 0010  
+                 _ADCON0 0007                   _OPTION 0000              entry__flash 00FC  
+__end_of__initialization 0001           __pcstackCOMMON 0000       __size_of_calibrate 002D  
+          __end_of_flash 00AA    __end_of_getLightValue 00AF          entry__calibrate 00FD  
+         calibrate@count 0014                  ??_flash 0010        calibrate@baseline 0015  
+             __pmaintext 0003        calibrate@newValue 0016        __end_of_calibrate 009D  
+                __ptext1 009D                  __ptext2 0070                  __ptext3 00AA  
+   end_of_initialization 0001           main@startValue 0018         main@currentValue 0019  
+    start_initialization 0001         __CFG_IOSCFS$8MHZ 0000                ___latbits 0000  
+          __pcstackBANK0 0010   __size_of_getLightValue 0005                _calibrate 0070  
+              __pjmp_tab 00FC           __size_of_flash 000D               ?_calibrate 0011  
+               _TRISGPIO 0006            _getLightValue 00AA               _ADCON0bits 0007  
+              main@score 001A           ?_getLightValue 0010              ??_calibrate 0012  
+          __size_of_main 006D      entry__getLightValue 00FE               _OSCCALbits 0005  
         ??_getLightValue 0000  

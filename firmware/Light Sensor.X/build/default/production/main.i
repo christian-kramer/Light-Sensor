@@ -7,14 +7,7 @@
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "main.c" 2
-
-
-
-
-
-
-
-
+# 11 "main.c"
 #pragma config IOSCFS = 8MHZ
 #pragma config MCPU = ON
 #pragma config WDTE = OFF
@@ -119,7 +112,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 15 "main.c" 2
+# 17 "main.c" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c90\\stdlib.h" 1 3
 
@@ -217,7 +210,40 @@ extern char * ltoa(char * buf, long val, int base);
 extern char * ultoa(char * buf, unsigned long val, int base);
 
 extern char * ftoa(float f, int * status);
-# 16 "main.c" 2
+# 18 "main.c" 2
+
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c90\\string.h" 1 3
+# 14 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c90\\string.h" 3
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+# 36 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c90\\string.h" 3
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+# 19 "main.c" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 3
@@ -566,7 +592,8 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 17 "main.c" 2
+# 20 "main.c" 2
+
 
 
 
@@ -579,29 +606,72 @@ char getLightValue()
     return ~ADRES;
 }
 
+void flash()
+{
+    GPIO = 0x04;
+    _delay((unsigned long)((10)*(8000000/4000.0)));
+    GPIO = 0x00;
+}
+
+char calibrate()
+{
+    char count = 0;
+    char baseline = 0;
+
+    while (count++ < 254)
+    {
+        char newValue = getLightValue();
+
+        if (newValue > baseline && newValue < 249)
+        {
+            baseline = newValue;
+        }
+
+        _delay((unsigned long)((2)*(8000000/4000.0)));
+    }
+
+    return baseline;
+}
+
 void main() {
 
+
+    OSCCALbits.FOSC4 = 0;
+    OPTION = 0b01000000;
     TRISGPIO = 0x01;
     ADCON0 = 0x41;
+    GPIO = 0x00;
+    ADRES = 0x00;
 
-    char startValue = getLightValue();
-    char count = 0;
+    flash();
 
-    while (1) {
+    char score = 50;
+
+    char startValue = calibrate();
+
+    flash();
+
+    while (1)
+    {
         char currentValue = getLightValue();
-        if (currentValue > startValue + 5 && count < 100)
+
+
+        if (currentValue > startValue + 5 && score < 100)
         {
-            count++;
+            score++;
         }
-        if (currentValue < startValue - 5 && count > 0)
+
+        if (currentValue < startValue - 5 && score > 0)
         {
-            count--;
+            score--;
         }
-        if (count == 100)
+
+        if (score == 100)
         {
             GPIO = 0x04;
         }
-        if (count == 0)
+
+        if (score == 0)
         {
             GPIO = 0x00;
         }
