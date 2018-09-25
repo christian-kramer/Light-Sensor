@@ -26,7 +26,7 @@ Here is the finished product:
 ![img](https://i.imgur.com/XpKLkg6.png)
 
 
-##But that's not all... (Troubleshooting)
+## But that's not all... (Troubleshooting)
 
 ---
 
