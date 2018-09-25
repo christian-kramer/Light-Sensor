@@ -24,3 +24,10 @@ Here is the finished product:
 
 ![img](https://i.imgur.com/r8z0JZU.png)
 ![img](https://i.imgur.com/XpKLkg6.png)
+
+
+##But that's not all... (Troubleshooting)
+
+---
+
+All was not completely well, however. The boards were not acting like the prototype. They didn't work immediately when they were turned on... only after the MCLR pin was manually pulled low. This raised some concerning red flags, namely that there could be something wrong electrically. I noticed that the battery holder was not making adequate contact with the battery, causing the microcontroller to randomly reset itself. But it was still exhibiting the same erroneous behavior even after putting a thicker battery in it... I looked to the datasheet for more advice. There seemed to be no major discrepancies between what the Power-On Reset and the MCLR Reset did as far as resetting the microcontroller... so maybe the Power-On Reset routine wasn't happening at all? According to datasheet figure 8-5, if Vdd doesn't reach its maximum within a certain period of time, the microcontroller will not reset properly. So I pulled off the decoupling capacitor, thinking the battery couldn't charge it quickly enough... but the behavior was unchanged. It still needed to be manually reset to work. Then I thought... what if it was just a software bug all along? Looking at my code, I was taking the first sample from the light sensor and treating it as the "baseline" for all other readings to be compared to. But, as I remembered from before, the oscilloscope showed that the output from the photoresistor was extremely jumpy; often it would read much lower than it should. So I added a function to take 255 samples over the course of about half a second, choose the largest value of those samples, and use that as baseline... and boom! It worked perfectly. The microcontroller was just using bad data all along. Nothing was wrong electrically, just a bug.
