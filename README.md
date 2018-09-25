@@ -12,6 +12,7 @@ There were two parts to consider: hardware and software. First of all, I didn't 
 Once the microcontroller selection process was out of the way, I whipped up a KiCAD mockup of my breadboard circuit, mapped to the PIC10F220 pins instead of my demo board. Unlike my prototype, the finished product would have 2 potential power supplies... the battery, and the PICkit2 programmer. In order to isolate them, I used a 3 position switch as the power-supply selector. Left pin went to the battery, right pin went to the J1 programming header, and middle pin went to VCC. That way there was physically no way the two power sources could ever mix.
 
 ![img](https://i.imgur.com/aBgVcKx.png)
+![img](https://i.imgur.com/hUR1Jec.png)
 
 After the conceptual circuit diagram was made, I had to think about how it should look laid out on an actual board. I wanted the device to be small, not much bigger than the battery. I took the footprint of the battery holder, and made a 3.5cm x 3cm rectangular board outline around it, making sure to offset it slightly for the through-hole resistors I'd need to find a place for. I laid those out first, followed by the programming header, the PIC, decoupling capacitor, LED, programming jumper, and switch. I aligned these components as close to the perimeter of the board as possible, because since the beginning I had a vision of a QR code linking back to my github planted in the middle... acting as a sort of business card. (Hello, btw, if that is how you found this)
 
